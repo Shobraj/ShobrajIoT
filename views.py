@@ -93,7 +93,7 @@ def register():
 @app.route('/client')
 @is_logged_in
 def client():
-    mqtt.publish('ws/world', 'hello world')
+    #mqtt.publish('ws/world', 'hello world')
     return render_template('client.html')
 
 @app.route('/UI')
