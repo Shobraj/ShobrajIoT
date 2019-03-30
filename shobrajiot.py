@@ -1,12 +1,14 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_mqtt import Mqtt
+import os
 
 #App init
 app = Flask(__name__)
 
 #Database init
 app.config.from_pyfile('config.py')
+#app.config.from_object(os.environ['APP_SETTING'])
 db = SQLAlchemy(app)
 
 #mqtt init
