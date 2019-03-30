@@ -50,6 +50,9 @@ def login():
         except exc.SQLAlchemyError:
             #app.logger.info(exc)            
             flash("Couldn't log in!", "danger")
+        except AttributeError:
+            flash("Some thing went wrong!", "warning")
+            return redirect(url_for('home'))
 
     return render_template('login.html', form=form)
 
