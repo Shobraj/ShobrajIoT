@@ -1,10 +1,15 @@
 <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-        <h5 class="my-0 mr-md-auto font-weight-normal">Shobraj-IoT</h5>
+        <h5 class="my-0 mr-md-auto font-weight-normal"><a href="/" style="text-decoration:none">Shobraj-IoT</a></h5>
         <nav class="my-2 my-md-0 mr-md-3">
-          <a class="p-2 text-dark" href="/">Home</a>
-          <a class="p-2 text-dark" href="/client">Client</a>
-          <a class="p-2 text-dark" href="/UI">UI</a>          
+          <a class="p-2 text-dark" href="/" style="text-decoration:none">Home</a>
+          <a class="p-2 text-dark" href="/client" style="text-decoration:none">Client</a>
+          <a class="p-2 text-dark" href="/UI" style="text-decoration:none">UI</a>          
 
         </nav>
-        <a class="btn btn-outline-primary" href="/Register">Sign up</a>
-      </div>
+        {% if session.logged_in %}        
+          <div style="padding-left:2px"> <a class="btn btn-outline-primary" href="/logout">Log Out</a> </div>
+        {% else %}
+          <div style="padding-right:2px"> <a class="btn btn-outline-primary" href="/Login">Log In</a> </div>
+          <div style="padding-left:2px"> <a class="btn btn-outline-primary" href="/Register">Sign up</a> </div>
+        {% endif %}
+</div>

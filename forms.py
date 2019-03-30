@@ -1,10 +1,10 @@
 from flask_wtf import FlaskForm
-from wtforms import Form, TextField, PasswordField, StringField, TextAreaField, validators
+from wtforms import Form, PasswordField, StringField, TextAreaField, validators
 
 
 class LoginForm(FlaskForm):
-    username = TextField('username')
-    password = PasswordField('password')
+    email = StringField('Email')
+    password = PasswordField('Password')
 
 
 class RegisterForm(Form):
