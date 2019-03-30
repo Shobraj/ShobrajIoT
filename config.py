@@ -10,5 +10,10 @@ MQTT_TLS_ENABLED =False
 
 
 SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URI'   
+<<<<<<< HEAD
     
     )
+=======
+   
+    )
+>>>>>>> 050287ce0082e3409308ca18dc6351cbdf0f7a46
