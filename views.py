@@ -80,6 +80,10 @@ def register():
         except exc.IntegrityError:
             flash("User with same detials is already exist!", "warning")
             return redirect(url_for('register'))
+        except AttributeError:
+            flash("Some thing went wrong!", "warning")
+            return redirect(url_for('home'))
+    
     return render_template('register.html', form=form)
 
 
