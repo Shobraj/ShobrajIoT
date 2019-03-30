@@ -9,5 +9,7 @@ MQTT_KEEPALIVE = 1
 MQTT_TLS_ENABLED =False
 
 
-SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URI' 
-)
+SECRET_KEY = 'mysecrectkey'
+SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URI'   
+    
+    )
