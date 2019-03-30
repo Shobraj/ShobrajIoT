@@ -47,9 +47,8 @@ def login():
             else:
                 flash("No user with email "+email, "danger")
                 return render_template('login.html', form=form)
-        except exc:
-            #app.logger.info(exc)
-            print(exc.value)
+        except exc.SQLAlchemyError:
+            #app.logger.info(exc)            
             flash("Couldn't log in!", "danger")
 
     return render_template('login.html', form=form)
