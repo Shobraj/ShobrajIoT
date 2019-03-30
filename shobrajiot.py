@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 #Database init
 app.config.from_pyfile('config.py')
-#app.config.from_object(os.environ['APP_SETTING'])
+#app.config.from_pyfile('myconfig.py')
 db = SQLAlchemy(app)
 
 #mqtt init
