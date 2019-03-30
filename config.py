@@ -12,6 +12,6 @@ MQTT_TLS_ENABLED =False
 
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 SECRET_KEY = 'mysecrectkey'
-SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URI'   
-    
+SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL'   
+    ,"postgres://postgres:post@localhost/shobrajiotdb"
     )
