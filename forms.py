@@ -16,3 +16,7 @@ class RegisterForm(Form):
         validators.EqualTo('confirm', message='Password do not match')
     ])
     confirm = PasswordField('Confirm Password')
+
+class Message(Form):
+    title = StringField('Title')
+    body = TextAreaField('Body')
