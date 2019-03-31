@@ -92,16 +92,17 @@ def register():
 
 
 @app.route('/client', methods=['GET','POST'])
-#@is_logged_in
+@is_logged_in
 def client():
     form = Message(request.form)
     if request.method == 'POST' and form.validate():
         message = {}
         message['title'] = form.title.data
         message['body'] = form.body.data
+        topic = 'shobraj'+form.topic.data
         #print(str(message))
-        mqtt.publish('ws/world', str(message))
-        
+        mqtt.publish(topic, str(message))
+        flash("Message sent ☻", "success")
         return redirect(url_for('client'))
         
     return render_template('client.html', form=form)
