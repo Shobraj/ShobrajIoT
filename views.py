@@ -1,10 +1,11 @@
 from shobrajiot import app, mqtt, db
 from models import User
-from forms import LoginForm, RegisterForm
+from forms import *
 from flask import render_template, request, redirect, url_for, flash, session
 from passlib.hash import sha256_crypt
 from sqlalchemy import exc
 from functools import wraps
+import json
 
 
 def is_logged_in(f):
@@ -66,7 +67,7 @@ def logout():
     
 
 #user register
-@app.route('/Register', methods=['GET', 'POST'])
+@app.route('/Register', methods=['GET','POST'])
 def register():
     form = RegisterForm(request.form)
     if request.method == 'POST' and form.validate():
@@ -90,11 +91,20 @@ def register():
     return render_template('register.html', form=form)
 
 
-@app.route('/client')
-@is_logged_in
+@app.route('/client', methods=['GET','POST'])
+#@is_logged_in
 def client():
-    #mqtt.publish('ws/world', 'hello world')
-    return render_template('client.html')
+    form = Message(request.form)
+    if request.method == 'POST' and form.validate():
+        message = {}
+        message['title'] = form.title.data
+        message['body'] = form.body.data
+        #print(str(message))
+        mqtt.publish('ws/world', str(message))
+        
+        return redirect(url_for('client'))
+        
+    return render_template('client.html', form=form)
 
 @app.route('/UI')
 @is_logged_in
