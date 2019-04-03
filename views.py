@@ -119,3 +119,4 @@ def UI():
     except exc.SQLAlchemyError:
         flash("Error fetching records please try again!", "warning")
         return render_template('ui.html')
+
