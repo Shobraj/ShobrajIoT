@@ -113,8 +113,7 @@ def client():
 @is_logged_in
 def UI():    
     try:
-        messages = db.session.query().all()
-        #db.session.query(Messages).all() 
+        messages = db.session.query(Messages).all() 
         return render_template('ui.html', messages=messages)
     except exc.SQLAlchemyError:
         flash("Error fetching records please try again!", "warning")
