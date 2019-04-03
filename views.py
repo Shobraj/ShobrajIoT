@@ -111,7 +111,11 @@ def client():
 
 @app.route('/UI')
 @is_logged_in
-def UI():
-    messages = db.session.query(Messages).all() 
-    return render_template('ui.html', messages=messages)
+def UI():    
+    try:
+        messages = db.session.query(Messages).all() 
+        return render_template('ui.html', messages=messages)
+    except exc.SQLAlchemyError:
+        flash("Error fetching records please try again!", "warning")
+        return render_template('ui.html')
 
