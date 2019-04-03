@@ -114,3 +114,4 @@ def client():
 def UI():
     messages = db.session.query(Messages).all() 
     return render_template('ui.html', messages=messages)
+
