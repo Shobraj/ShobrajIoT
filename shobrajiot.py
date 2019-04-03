@@ -16,5 +16,6 @@ db = SQLAlchemy(app)
 from views import *
 
 if __name__ == '__main__':
+    from models import *
     db.create_all()
     app.run()
