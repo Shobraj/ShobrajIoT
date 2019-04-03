@@ -9,6 +9,7 @@ def print_msg(client, userdata, message):
     payload = (message.payload).decode("utf-8").replace("'",'"')
     payloaddict = json.loads(payload)
     message = Messages(payloaddict['title'], payloaddict['body'])
+    print("The data with title: '"+message.title+"' and body: '"+message.body+"' is received.")
     db.session.add(message)
     try:
         db.session.commit()
