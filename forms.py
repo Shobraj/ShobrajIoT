@@ -17,7 +17,6 @@ class RegisterForm(Form):
     ])
     confirm = PasswordField('Confirm Password')
 
-class Message(Form):
-    topic = StringField('Topic')
+class MessageForm(Form):    
     title = StringField('Title')
     body = TextAreaField('Body')

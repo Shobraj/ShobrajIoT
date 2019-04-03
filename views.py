@@ -1,11 +1,12 @@
-from shobrajiot import app, mqtt, db
-from models import User
+from shobrajiot import app, db
+from models import User, Messages
 from forms import *
 from flask import render_template, request, redirect, url_for, flash, session
 from passlib.hash import sha256_crypt
 from sqlalchemy import exc
 from functools import wraps
 import json
+import paho.mqtt.publish as publish
 
 
 def is_logged_in(f):
@@ -76,13 +77,16 @@ def register():
         username = form.username.data
         password = sha256_crypt.encrypt(str(form.password.data))
         user = User(name, username, email, password)
-        try:
-            db.session.add(user)
+        db.session.add(user)
+        try:            
             db.session.commit()
             flash("Registration success!", "success")
             return redirect(url_for('login'))
         except exc.IntegrityError:
             flash("User with same detials is already exist!", "warning")
+            return redirect(url_for('register'))
+        except exc.SQLAlchemyError:
+            flash("Ooops Some thing went wrong please try again!", "danger")
             return redirect(url_for('register'))
         except AttributeError:
             flash("Some thing went wrong!", "warning")
@@ -94,15 +98,13 @@ def register():
 @app.route('/client', methods=['GET','POST'])
 @is_logged_in
 def client():
-    form = Message(request.form)
+    form = MessageForm(request.form)
     if request.method == 'POST' and form.validate():
         message = {}
-        message['title'] = form.title.data
-        message['body'] = form.body.data
-        topic = 'shobraj'+form.topic.data
-        print("|"+topic+"|")
-        mqtt.publish(topic, str(message))
-        flash("Message sent ☻", "success")
+        message["title"] = form.title.data
+        message["body"] = form.body.data        
+        publish.single('shobrajmessage', str(message), hostname="iot.eclipse.org")
+        flash("Message sent published to topic shobrajmessage with Title:'"+form.title.data+"' and Body:'"+form.body.data+"' ☻", "success")
         return redirect(url_for('client'))
         
     return render_template('client.html', form=form)
@@ -110,4 +112,6 @@ def client():
 @app.route('/UI')
 @is_logged_in
 def UI():
-    return render_template('ui.html')
+    messages = db.session.query(Messages).all() 
+    return render_template('ui.html', messages=messages)
+
