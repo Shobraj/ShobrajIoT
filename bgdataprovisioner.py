@@ -1,14 +1,20 @@
-import paho.mqtt.client as paho
 
-def on_subscribe(client, userdata, mid, granted_qos):
-    print("Subscribed: "+str(mid)+" "+str(granted_qos))
+import paho.mqtt.subscribe as subscribe
+import json
+from shobrajiot import db
+from models import Messages
+from sqlalchemy import exc
 
-def on_message(client, userdata, msg):
-    print(msg.topic+" "+str(msg.qos)+" "+str(msg.payload))    
+def print_msg(client, userdata, message):
+    payload = (message.payload).decode("utf-8").replace("'",'"')
+    payloaddict = json.loads(payload)
+    message = Messages(payloaddict['title'], payloaddict['body'])
+    db.session.add(message)
+    try:
+        db.session.commit()
+        print("message with title: '"+message.title+"' and body: '"+message.body+"' is store to Database")
+    except exc.SQLAlchemyError:
+        pass
 
-client = paho.Client()
-client.on_subscribe = on_subscribe
-client.on_message = on_message
-client.connect('iot.eclipse.org', 443)
-client.subscribe("ws/world", qos=0)
-client.loop_forever()
+topic = 'shobrajmessage'
+subscribe.callback(print_msg, topic, hostname="iot.eclipse.org")

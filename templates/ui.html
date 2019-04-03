@@ -3,6 +3,32 @@
 {% block body %}
 
 <div class="container">
+
+    <div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Body</th>                    
+                </tr>
+            </thead>
+            <tbody>
+                {% for msg in messages %}
+                <tr>
+                    <td>{{loop.index}}</td>
+                    <td>{{msg.title}}</td>
+                    <td>{{msg.body}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+    </div>
+
+</div>
+
+<div class="container">
     <div class="row col-xs-6">
         <img style= "width: 100%; height: 100%" src="/static/website-construction.jpg" alt="Mister Marbles head tilt">
     </div>  
