@@ -100,7 +100,7 @@ def client():
         message['title'] = form.title.data
         message['body'] = form.body.data
         topic = 'shobraj'+form.topic.data
-        #print(str(message))
+        print("|"+topic+"|")
         mqtt.publish(topic, str(message))
         flash("Message sent ☻", "success")
         return redirect(url_for('client'))
