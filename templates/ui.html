@@ -14,13 +14,21 @@
                 </tr>
             </thead>
             <tbody>
-                {% for msg in messages %}
+                {% if messages %}
+                    {% for msg in messages %}
                 <tr>
                     <td>{{loop.index}}</td>
                     <td>{{msg.title}}</td>
                     <td>{{msg.body}}</td>
                 </tr>
-                {% endfor %}
+                    {% endfor %}
+                {% else %}
+                <tr>
+                    <td>#</td>
+                    <td>#</td>
+                    <td>#</td>
+                </tr>
+                {% endif %}
             </tbody>
         </table>
         
