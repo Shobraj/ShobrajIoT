@@ -104,7 +104,7 @@ def client():
         message["title"] = form.title.data
         message["body"] = form.body.data        
         publish.single('shobrajmessage', str(message), hostname="iot.eclipse.org")
-        flash("Message sent published to topic shobrajmessage ☻", "success")
+        flash("Message sent published to topic shobrajmessage with Title:'"+form.title.data+"' and Body:'"+form.body.data+"' ☻", "success")
         return redirect(url_for('client'))
         
     return render_template('client.html', form=form)
