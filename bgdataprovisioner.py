@@ -14,8 +14,12 @@ def print_msg(client, userdata, message):
     try:
         db.session.commit()
         print("message with title: '"+message.title+"' and body: '"+message.body+"' is store to Database")
+    except exc.IntegrityError as e:
+        db.session().rollback()
+        print(e)
     except exc.SQLAlchemyError:
         pass
+    
 
 topic = 'shobrajmessage'
 subscribe.callback(print_msg, topic, hostname="iot.eclipse.org")
